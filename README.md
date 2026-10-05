@@ -11,7 +11,7 @@
 - 빌드 결과 디렉터리: `dist`
 - 루트 디렉터리: 저장소 루트
 
-Cloudflare Pages가 제공하는 `CF_PAGES_URL`로 canonical, 구조화 데이터, robots.txt와 sitemap.xml의 주소를 생성합니다.
+검색용 대표 주소는 기본적으로 `https://doctorsoral.pages.dev`를 사용합니다. 빌드별 `CF_PAGES_URL`은 canonical·구조화 데이터·robots.txt·사이트맵에 사용하지 않습니다. 미리보기에는 Cloudflare 기본 noindex를 유지합니다.
 최종 도메인을 연결할 때 환경 변수 `SITE_URL`을 `https://최종도메인`으로 설정하고 재배포하세요.
 
 ## 수정
@@ -56,3 +56,8 @@ python3 -m http.server 8080 --directory dist
 각 역은 관리 중점 → 위치 → 방법 → 도구·치약 안내를 바로 보여줍니다. 특별 관리 5개 노선은 모든 생애 구간에서 접근할 수 있습니다. 생애 구간에서 특별 관리·5루틴으로 이동한 경우 돌아오는 링크에 출발 구간을 유지합니다.
 
 생애 URL은 `#life/infant`, `#life/school`, `#life/teen`, `#life/young`, `#life/middle`, `#life/mature`, `#life/senior`입니다. 기존 숫자 URL과 주제별 하위 URL은 해당 생애 안내로 연결합니다. 돌봄 양치는 `#route/care`입니다.
+
+## 검색 노출 준비
+
+홈페이지 제목·소개·구조화 데이터는 닥터스 브랜드와 닥터스 쉴드 치약의 관계를 명시합니다. 개별 치약은 별도 HTML 링크로 접근합니다.
+운영 배포 후 Google Search Console에서 URL 접두어 속성 `https://doctorsoral.pages.dev/`의 소유권 확인, `sitemap.xml` 제출, 홈·치약 소개·개별 치약 URL 검사 및 색인 요청을 진행하세요. 소유권 인증 자료가 아직 제공되지 않아 인증·제출은 완료되지 않았습니다. 검색 반영 시점과 순위는 보장되지 않습니다.
