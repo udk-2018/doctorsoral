@@ -916,6 +916,8 @@ function selectPhase(i){if(!Number.isInteger(i)||i<0||i>3)return;phase=i;tool=0;
 function openProduct(i){if(!Number.isInteger(i)||i<0||i>2)return;if(depth===2)returnContext={route,phase,step,expandedStep,time,comfort,ageEntry};else if(depth!==5)returnContext=null;location.href=['soft','balance','core'][i]+'.html';return}
 function back(){if(depth===8){history.pushState(null,'','#entrance');readHash();scrollToIntro();return}if(depth===1&&ageTopic){ageTopic=null;commit();scrollToIntro();return}if(depth===5&&returnContext){({route,phase,step,expandedStep,time,comfort,ageEntry}=returnContext);returnContext=null;depth=2;tool=0;product=defaultPaste();commit();expandedStep=-1;phase=0;scrollToIntro();$('#care-title-'+route).focus({preventScroll:true})}else if(depth===7){if(routineOrigin)openRoute(routineOrigin,ageEntry);else go(0)}else if(depth===5)go(6);else if(depth===6)go(0);else if(depth===2)go(ageEntry?1:0);else go(0)}
 function readHash(instant=false){
+ if(/^#routine(?:\/|$)/.test(location.hash)){location.replace('routine.html');return}
+ if(/^#toothpaste(?:\/|$)/.test(location.hash)){const name=location.hash.split('/')[1];location.replace(['soft','balance','core'].includes(name)?name+'.html':'toothpaste.html');return}
  if(/^#route\/ortho(?:\/|$)/.test(location.hash)){location.replace('ortho.html');return}
  routineOrigin=null;const b=location.hash.slice(1).split('/');depth=0;route='ortho';phase=0;step=2;expandedStep=-1;tool=0;time='day';comfort=false;ageEntry=false;product=0;returnContext=null;
  ageTopic=null;selectedAge='young';
