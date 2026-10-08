@@ -16,7 +16,7 @@ const origin=configured.origin===legacyOrigin?currentOrigin:configured.origin;
 await rm('dist',{recursive:true,force:true});
 await mkdir('dist');
 for(const file of await readdir('.')){
-  if(!/\.(html|css|js|svg|png|jpg|xml|txt)$/.test(file))continue;
+  if(!/\.(html|css|js|svg|png|jpg|jpeg|webp|gif|xml|txt)$/.test(file))continue;
   await cp(file,'dist/'+file);
   if(/\.(html|xml|txt)$/.test(file)){
     const text=await readFile(file,'utf8');
