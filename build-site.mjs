@@ -1,18 +1,20 @@
 import {cp,readFile,writeFile,readdir,rm,mkdir} from 'node:fs/promises';
 // Stable origins only: deployment preview URLs must never become canonical URLs.
 const legacyOrigin='https://doctorsoral.pages.dev';
-const currentOrigin='https://doctorscare.pages.dev';
+const pagesOrigin='https://doctorscare.pages.dev';
+const currentOrigin='https://doctors-shield.com';
 const raw=process.env.SITE_URL||currentOrigin;
 const configured=new URL(raw);
 if(!['https:','http:'].includes(configured.protocol))throw new Error('Invalid site URL');
 // Both Pages projects build this repository. Redirect only the legacy project.
 const deploymentHost=process.env.CF_PAGES_URL?new URL(process.env.CF_PAGES_URL).hostname:'';
 const legacyHost=new URL(legacyOrigin).hostname;
-const currentHost=new URL(currentOrigin).hostname;
+const currentHost=new URL(pagesOrigin).hostname;
 const onLegacy=deploymentHost===legacyHost||deploymentHost.endsWith('.'+legacyHost);
 const onCurrent=deploymentHost===currentHost||deploymentHost.endsWith('.'+currentHost);
 const redirectLegacy=onLegacy||(!onCurrent&&configured.origin===legacyOrigin);
-const origin=configured.origin===legacyOrigin?currentOrigin:configured.origin;
+// Existing Cloudflare SITE_URL values may still name either Pages project.
+const origin=[legacyOrigin,pagesOrigin].includes(configured.origin)?currentOrigin:configured.origin;
 await rm('dist',{recursive:true,force:true});
 await mkdir('dist');
 for(const file of await readdir('.')){
